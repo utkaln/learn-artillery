@@ -1,0 +1,42 @@
+config:
+  # This is a test server run by team Artillery
+  # It's designed to be highly scalable
+  target: http://asciiart.artillery.io:8080https://z8898l7x0f.execute-api.us-east-1.amazonaws.com/prod
+  defaults:
+    headers:
+      Authorization: "AWS4-HMAC-SHA256 Credential=AKIAS3L2VDXQMTSSGQO3/20230816/us-east-1/execute-api/aws4_request, SignedHeaders=host;x-amz-date, Signature=aa401ea913180669d4343db4be4f095101294ee0c3a7a58e40c17a6625a47fd0"
+  phases:
+    - duration: 60
+      arrivalRate: 1
+      rampTo: 5
+      name: Warm up phase
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 10
+      name: Ramp up load
+    - duration: 30
+      arrivalRate: 10
+      rampTo: 30
+      name: Spike phase
+  # Load & configure a couple of useful plugins
+  # https://docs.art/reference/extensions
+  plugins:
+    ensure: {}
+    apdex: {}
+    metrics-by-endpoint: {}
+  apdex:
+    threshold: 100
+  ensure:
+      thresholds:
+        - http.response_time.p99: 100
+        - http.response_time.p95: 75
+scenarios:
+  - flow:
+      - loop:
+        - get:
+            url: "/dino"
+        - get:
+            url: "/pony"
+        - get:
+            url: "/armadillo"
+        count: 100

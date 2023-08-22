@@ -1,0 +1,23 @@
+{
+  "name": "learn-artillery",
+  "version": "1.0.0",
+  "description": "artillery to load test aws serverless code",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "load": "artillery run ./loadtest/hello-world-test.yml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/utkaln/learn-artillery.git"
+  },
+  "author": "Utkal Nayak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/utkaln/learn-artillery/issues"
+  },
+  "homepage": "https://github.com/utkaln/learn-artillery#readme",
+  "dependencies": {
+    "artillery": "^2.0.0-35"
+  }
+}
